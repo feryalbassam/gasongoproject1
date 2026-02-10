@@ -1,16 +1,37 @@
-# gas_on_go
+Gas on Go – Mobile Gas Cylinder Delivery App
 
-A new Flutter project.
+Description: Gas on Go is a location-aware mobile application designed to modernize and streamline the gas cylinder delivery process in Jordan. Inspired by the Uber model, it connects customers and gas sellers through a dynamic, user-friendly platform, enabling efficient ordering, real-time tracking, and optimized deliveries.
 
-## Getting Started
+Key Features:
 
-This project is a starting point for a Flutter application.
+Place and track gas cylinder orders in real time
 
-A few resources to get you started if this is your first Flutter project:
+Optimized delivery routes for faster and eco-friendly service
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+Firebase integration for smooth communication and notifications
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+OpenStreetMap & OSRM API for live tracking and route optimization
+
+Smaller, safer orders to reduce household risks
+
+Transparent pricing, availability, and delivery times
+
+Technologies Used:
+
+Flutter – Mobile app development
+
+Firebase – Firestore, Realtime Database, Cloud Messaging
+
+OpenStreetMap & OSRM API – Route planning and tracking
+
+Benefits:
+
+Increased customer convenience and safety
+
+Reduced delivery times and operational costs for sellers
+
+Lower environmental impact with optimized delivery routes
+
+Greater transparency and reliability in the gas delivery system
+
+Problem Solved: Traditional gas delivery in Jordan is inefficient, noisy, unpredictable, and risky. Gas on Go eliminates these issues by offering a digital, on-demand, and safe solution for both customers and sellers.
