@@ -303,12 +303,6 @@ class _OpenstreetmapScreenState extends State<OpenstreetmapScreen> {
   }
 }*/
 
-// ✅ Full working version of Driverdashboard + DriverDeliveryScreen (with automatic order fetching)
-
-// ✅ Full working version of Driverdashboard + DriverDeliveryScreen + Manual Order Selection
-
-// ✅ DriverDeliveryScreen + ManualOrderSelector (driver can accept any available order)
-
 import 'dart:convert';
 import 'dart:async';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -475,8 +469,12 @@ class _SellerDeliveryScreenState extends State<SellerDeliveryScreen> {
 
         return Scaffold(
           appBar: AppBar(
-            title: const Text('Delivering Order'),
+            title: const Text(
+              'Delivering Order',
+              style: TextStyle(color: Colors.white),
+            ),
             backgroundColor: const Color.fromARGB(255, 15, 15, 41),
+            centerTitle: true,
           ),
           body: Column(
             children: [
@@ -499,7 +497,7 @@ class _SellerDeliveryScreenState extends State<SellerDeliveryScreen> {
                             Polyline(
                               points: _route,
                               strokeWidth: 4.0,
-                              color: Colors.red,
+                              color: Color.fromARGB(255, 15, 15, 41),
                             ),
                         ],
                       ),
@@ -510,13 +508,14 @@ class _SellerDeliveryScreenState extends State<SellerDeliveryScreen> {
                             width: 40,
                             height: 40,
                             child: const Icon(Icons.local_shipping,
-                                color: Colors.green, size: 40),
+                                color: Color.fromARGB(255, 15, 15, 41),
+                                size: 40),
                           ),
                           Marker(
                             point: destination!,
                             width: 40,
                             height: 40,
-                            child: const Icon(Icons.flag,
+                            child: const Icon(Icons.location_pin,
                                 color: Colors.red, size: 40),
                           ),
                         ],

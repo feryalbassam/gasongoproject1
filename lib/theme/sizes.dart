@@ -1,4 +1,4 @@
-class TSizes {
+/*class TSizes {
   // Padding and margin sizes
   static const double xs = 4.0;
   static const double sm = 8.0;
@@ -40,3 +40,4 @@ class TSizes {
   static const double borderRadiusLg = 12.0;
 
 }
+*/

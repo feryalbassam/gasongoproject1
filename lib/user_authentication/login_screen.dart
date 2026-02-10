@@ -19,6 +19,7 @@ class _LoginScreenState extends State<LoginScreen> {
   TextEditingController _passwordController = TextEditingController();
   late bool securetext;
   CommonMethods cMethods = CommonMethods();
+  String role = "customer";
 
   @override
   void initState() {

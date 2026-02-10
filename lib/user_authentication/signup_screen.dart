@@ -23,16 +23,23 @@ class _SignUpScreenState extends State<SignUpScreen> {
   late bool securetext;
   CommonMethods cMethods = CommonMethods();
 
-  checkIfNetworkIsAvailable() {
-    cMethods.checkConnectivity(context);
+  @override
+  void initState() {
+    securetext = true;
+    super.initState();
+  }
 
-    signUpFormValidation();
+  checkIfNetworkIsAvailable() async {
+    bool isConnected = await cMethods.checkConnectivity(context);
+    if (isConnected) {
+      signUpFormValidation();
+    }
   }
 
   signUpFormValidation() {
     if (_usernameController.text.trim().length < 3) {
       cMethods.displaySnackBar(
-          'Your name must be at least 3 0r more characters.', context);
+          'Your name must be at least 3 or more characters.', context);
     } else if (_phoneController.text.trim().length != 10) {
       cMethods.displaySnackBar(
           'Phone number must be exactly 10 digits.', context);
@@ -46,55 +53,60 @@ class _SignUpScreenState extends State<SignUpScreen> {
     }
   }
 
-  @override
-  void initState() {
-    securetext = true;
-    super.initState();
-  }
-
   registerNewUser() async {
-    showDialog(
-      context: context,
-      barrierDismissible: false,
-      builder: (BuildContext context) =>
-          LoadingDialog(messageText: 'Registering your account...'),
-    );
+    try {
+      showDialog(
+        context: context,
+        barrierDismissible: false,
+        builder: (BuildContext context) =>
+            LoadingDialog(messageText: 'Registering your account...'),
+      );
 
-    final User? userFirebase = (await FirebaseAuth.instance
-            .createUserWithEmailAndPassword(
-      email: _emailController.text.trim(),
-      password: _passwordController.text.trim(),
-    )
-            .catchError((errorMsg) {
+      final UserCredential userCredential =
+          await FirebaseAuth.instance.createUserWithEmailAndPassword(
+        email: _emailController.text.trim(),
+        password: _passwordController.text.trim(),
+      );
+
+      final User? userFirebase = userCredential.user;
+
       Navigator.pop(context);
-      cMethods.displaySnackBar(errorMsg.toString(), context);
-    }))
-        .user;
-    if (!context.mounted) return;
-    Navigator.pop(context);
 
-    DatabaseReference usersRef =
-        FirebaseDatabase.instance.ref().child('users').child(userFirebase!.uid);
-    Map userDataMap = {
-      'name': _usernameController.text.trim(),
-      'email': _emailController.text.trim(),
-      'phone': _phoneController.text.trim(),
-      'id': userFirebase.uid,
-      'blockStatus': 'no',
-    };
-    usersRef.set(userDataMap);
+      if (userFirebase == null) {
+        cMethods.displaySnackBar(
+            'Registration failed. Please try again.', context);
+        return;
+      }
 
-    await FirebaseFirestore.instance
-        .collection('users')
-        .doc(userFirebase.uid)
-        .set({
-      'role': 'customer',
-      'name': _usernameController.text.trim(),
-      'email': _emailController.text.trim(),
-    });
+      DatabaseReference usersRef = FirebaseDatabase.instance
+          .ref()
+          .child('users')
+          .child(userFirebase.uid);
 
-    Navigator.push(
-        context, MaterialPageRoute(builder: (context) => Dashboard()));
+      Map userDataMap = {
+        'name': _usernameController.text.trim(),
+        'email': _emailController.text.trim(),
+        'phone': _phoneController.text.trim(),
+        'id': userFirebase.uid,
+        'blockStatus': 'no',
+      };
+      await usersRef.set(userDataMap);
+
+      await FirebaseFirestore.instance
+          .collection('users')
+          .doc(userFirebase.uid)
+          .set({
+        'role': 'customer',
+        'name': _usernameController.text.trim(),
+        'email': _emailController.text.trim(),
+      });
+
+      Navigator.pushReplacement(
+          context, MaterialPageRoute(builder: (context) => Dashboard()));
+    } catch (error) {
+      Navigator.pop(context);
+      cMethods.displaySnackBar(error.toString(), context);
+    }
   }
 
   @override

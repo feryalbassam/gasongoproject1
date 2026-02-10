@@ -284,7 +284,7 @@ class _OrderPlacementPageState extends State<OrderPlacementPage> {
                   ScaffoldMessenger.of(context).showSnackBar(
                     const SnackBar(
                       content: Text("Please enter a delivery address!",
-                          style: TextStyle(color: Colors.black)),
+                          style: TextStyle(color: Colors.white)),
                     ),
                   );
                 }

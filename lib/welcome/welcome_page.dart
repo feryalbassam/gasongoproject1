@@ -105,11 +105,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                     onPressed: () {
                       Navigator.push(
                         context,
-                        MaterialPageRoute(
-                            builder: (context) =>
-                                FirebaseAuth.instance.currentUser == null
-                                    ? LoginScreen()
-                                    : Dashboard()),
+                        MaterialPageRoute(builder: (context) => LoginScreen()),
                       );
                     },
                     child: const Text(
@@ -140,10 +136,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) =>
-                                FirebaseAuth.instance.currentUser == null
-                                    ? LoginScreenSeller()
-                                    : Sellerdashboard()),
+                            builder: (context) => LoginScreenSeller()),
                       );
                     },
                     child: const Text(
